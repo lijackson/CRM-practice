@@ -57,13 +57,16 @@ class CrmRpsAgent {
         double totalRegret = rockRegret + paperRegret + scissorsRegret;
 
         // Default uniform strategy if total regret is non-positive
-        if (totalRegret <= 0)
-            return std::array<double, 3>{1.0 / 3, 1.0 / 3, 1.0 / 3};
-
+        if (totalRegret <= 0) {
+            currentStrategy[ROCK] = 1./3;
+            currentStrategy[PAPER] = 1./3;
+            currentStrategy[SCISSORS] = 1./3;
+        } else {
         // Calculate normalized positive regret strategy
-        currentStrategy[ROCK] = rockRegret / totalRegret;
-        currentStrategy[PAPER] = paperRegret / totalRegret;
-        currentStrategy[SCISSORS] = scissorsRegret / totalRegret;
+            currentStrategy[ROCK] = rockRegret / totalRegret;
+            currentStrategy[PAPER] = paperRegret / totalRegret;
+            currentStrategy[SCISSORS] = scissorsRegret / totalRegret;
+        }
         return currentStrategy;
     }
 
